@@ -50,15 +50,15 @@ int main(int argc, char const *argv[]) {
     std::thread t1(log_speed);
 
     while (1) {
-        valread = read(new_socket ,buffer, 32768);
+        valread = read(new_socket ,buffer, PKT_SIZE);
         if (valread == -1) {
             //close(new_socket);
             //cout << "Error detected, closing socket" << endl;
             //break;
+        } else {
+            var_valread += valread;
         }
-        var_valread += valread;
     }
-
     return 0;
 }
 

@@ -8,5 +8,6 @@
 #include <string>
 #include <iostream>
 
+#define PKT_SIZE 8196
 
 void log_speed();

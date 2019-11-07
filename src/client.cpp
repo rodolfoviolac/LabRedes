@@ -41,15 +41,18 @@ int main(int argc, char const *argv[]) {
 
   std::thread t1(log_speed);
 
-  char c[32768];
+  char c[PKT_SIZE];
+  //string c = "hello";
+
   while (1) {
-    int valsend = send(sock , c , 32768 , 0 );
+    int valsend = send(sock , c ,PKT_SIZE , 0 );
     if (valsend == -1) {
       //close(sock);
       //cout << "Error detected, closing socket" << endl;
       //break;
+    } else {
+      var_valsend += valsend;
     }
-    var_valsend += valsend;
   }
   return 0;
 }
