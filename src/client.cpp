@@ -44,7 +44,7 @@ int main(int argc, char const *argv[]) {
   char c[PKT_SIZE];
   //string c = "hello";
 
-  while (1) {
+  for (int i = 0; i < 30000; i++) {
     int valsend = send(sock , c ,PKT_SIZE , 0 );
     if (valsend > 0) var_valsend += valsend;
 

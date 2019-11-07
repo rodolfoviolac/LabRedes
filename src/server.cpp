@@ -49,7 +49,7 @@ int main(int argc, char const *argv[]) {
 
     std::thread t1(log_speed);
 
-    while (1) {
+    for (int i = 0; i < 30000; i++) {
         valread = read(new_socket ,buffer, PKT_SIZE);
         if (valread > 0 ) var_valread += valread;
     }
