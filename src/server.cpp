@@ -51,14 +51,9 @@ int main(int argc, char const *argv[]) {
 
     while (1) {
         valread = read(new_socket ,buffer, PKT_SIZE);
-        if (valread == -1) {
-            //close(new_socket);
-            //cout << "Error detected, closing socket" << endl;
-            //break;
-        } else {
-            var_valread += valread;
-        }
+        if (valread > 0 ) var_valread += valread;
     }
+
     return 0;
 }
 

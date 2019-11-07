@@ -46,13 +46,8 @@ int main(int argc, char const *argv[]) {
 
   while (1) {
     int valsend = send(sock , c ,PKT_SIZE , 0 );
-    if (valsend == -1) {
-      //close(sock);
-      //cout << "Error detected, closing socket" << endl;
-      //break;
-    } else {
-      var_valsend += valsend;
-    }
+    if (valsend > 0) var_valsend += valsend;
+
   }
   return 0;
 }

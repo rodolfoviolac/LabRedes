@@ -8,7 +8,7 @@
 #include <thread>
 
 #define PKT_SIZE 8196
-#define IP_ADDR "127.0.0.1"
+#define IP_ADDR "192.168.0.102"
 
 using namespace std;
 
