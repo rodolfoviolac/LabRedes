@@ -8,4 +8,5 @@
 #include <string>
 #include <iostream>
 
-#define PORT 4000
+
+void log_speed();

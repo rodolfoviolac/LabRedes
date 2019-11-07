@@ -9,5 +9,3 @@
 #define IP_ADDR "192.168.0.102"
 
 using namespace std;
-
-void stoc(std::string str, char* c);

@@ -37,10 +37,9 @@ int main(int argc, char const *argv[]) {
     return -1;
   }
 
-  std:string c = "oi";
+  char c[8192];
   while (1) {
-    send(sock , c.c_str() , c.length() , 0 );
+    send(sock , c , 8192 , 0 );
   }
-
   return 0;
 }
