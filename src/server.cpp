@@ -51,9 +51,12 @@ int main(int argc, char const *argv[]) {
 
     while (1) {
         valread = read(new_socket ,buffer, 32768);
+        if (valread == -1) {
+            //close(new_socket);
+            //cout << "Error detected, closing socket" << endl;
+            //break;
+        }
         var_valread += valread;
-        //cout << valread << endl;
-        //printf("%s\n",buffer );
     }
 
     return 0;

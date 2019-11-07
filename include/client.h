@@ -5,7 +5,10 @@
 #include <string.h>
 #include <iostream>
 #include <sstream>
+#include <thread>
 
-#define IP_ADDR "192.168.0.102"
+#define IP_ADDR "127.0.0.1"
 
 using namespace std;
+
+void log_speed();

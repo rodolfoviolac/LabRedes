@@ -5,6 +5,8 @@
 #include "../include/client.h"
 
 
+double var_valsend = 0;
+
 int main(int argc, char const *argv[]) {
 
   int port;
@@ -37,9 +39,27 @@ int main(int argc, char const *argv[]) {
     return -1;
   }
 
+  std::thread t1(log_speed);
+
   char c[32768];
   while (1) {
-    send(sock , c , 32768 , 0 );
+    int valsend = send(sock , c , 32768 , 0 );
+    if (valsend == -1) {
+      //close(sock);
+      //cout << "Error detected, closing socket" << endl;
+      //break;
+    }
+    var_valsend += valsend;
   }
   return 0;
+}
+
+void log_speed(){
+  while (1) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    double value = var_valsend/1024/1024;
+    cout << value << " MB/s" << endl;
+    var_valsend = 0;
+
+  }
 }
