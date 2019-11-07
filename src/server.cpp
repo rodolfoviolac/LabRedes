@@ -63,7 +63,7 @@ void log_speed(){
     while (1) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         double value = var_valread/1024/1024;
-        cout << value << " Mbit/s" << endl;
+        cout << value << " MB/s" << endl;
         var_valread = 0;
 
     }
