@@ -37,9 +37,9 @@ int main(int argc, char const *argv[]) {
     return -1;
   }
 
-  char c[8192];
+  char c[32768];
   while (1) {
-    send(sock , c , 8192 , 0 );
+    send(sock , c , 32768 , 0 );
   }
   return 0;
 }

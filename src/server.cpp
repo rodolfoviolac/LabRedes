@@ -50,7 +50,7 @@ int main(int argc, char const *argv[]) {
     std::thread t1(log_speed);
 
     while (1) {
-        valread = read(new_socket ,buffer, 8192);
+        valread = read(new_socket ,buffer, 32768);
         var_valread += valread;
         //cout << valread << endl;
         //printf("%s\n",buffer );
