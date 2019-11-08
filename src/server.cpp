@@ -6,6 +6,7 @@
 
 using namespace std;
 
+double tmp = 0;
 double var_valread = 0;
 
 int main(int argc, char const *argv[]) {
@@ -49,7 +50,7 @@ int main(int argc, char const *argv[]) {
 
     std::thread t1(log_speed);
 
-    for (int i = 0; i < 30000; i++) {
+    while(1) {
         valread = read(new_socket ,buffer, PKT_SIZE);
         if (valread > 0 ) var_valread += valread;
     }
@@ -60,9 +61,11 @@ int main(int argc, char const *argv[]) {
 void log_speed(){
     while (1) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        double value = var_valread/1024/1024;
-        cout << value << " MB/s" << endl;
-        var_valread = 0;
+	double v = var_valread;
+        double value = (v-tmp)/1000/1000;
+	tmp = v;
+        cout << value*8 << " Mbit/s" << endl;
+        //var_valread = 0;
 
     }
 }

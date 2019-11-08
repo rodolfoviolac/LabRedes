@@ -7,7 +7,7 @@
 #include <sstream>
 #include <thread>
 
-#define PKT_SIZE 8196
+#define PKT_SIZE 65568
 #define IP_ADDR "192.168.0.102"
 
 using namespace std;
