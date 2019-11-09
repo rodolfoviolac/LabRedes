@@ -1,30 +1,29 @@
 ---
-title: "Trabalho Laborat??rio de Redes."
+title: "Trabalho Laboratório de Redes."
 author: "Rodrigo Franzoi Scroferneker"
 date: "November 2019"
 output: 
-  pdf_document:
-    number_sections: yes
-  html_document: default
+  pdf_document: 
+    latex_engine: xelatex
 ---
 
 #Objetivo
 
-Criar um programa em TCP que permita analisar equidade do tr??fego na rede. O programa deve enviar dados na m??xima velocidade poss??vel pela rede (no laborat??rio ?? de 1G bit/s). Um par??metro de entrada deve ser a porta a ser utilizada, e as conex??es podem ser feitas de forma par a par (cliente-servidor). A rede deve ser monitorada por alguma ferramenta espec??fica (No Linux o System Monitor, por exemplo. No Windows o Netmeter EVO, por exemplo). O programa deve, obrigatoriamente, gerar um log com a m??dia de tr??fego por segundo (em bit/s).
+Criar um programa em TCP que permita analisar equidade do tráfego na rede. O programa deve enviar dados na máxima velocidade possível pela rede (no laboratório é de 1G bit/s). Um parâmetro de entrada deve ser a porta a ser utilizada, e as conexões podem ser feitas de forma par a par (cliente-servidor). A rede deve ser monitorada por alguma ferramenta específica (No Linux o System Monitor, por exemplo. No Windows o Netmeter EVO, por exemplo). O programa deve, obrigatoriamente, gerar um log com a média de tráfego por segundo (em bit/s).
 
-Parte 1: Apresentar gr??fico com conex??o entre duas m??quinas (uma janela de terminal no servidor e uma no cliente).
+Parte 1: Apresentar gráfico com conexão entre duas máquinas (uma janela de terminal no servidor e uma no cliente).
 
-Parte 2: Expandir a conex??o para mais um cliente (duas janelas de terminal no servidor e duas no cliente. Cada cliente x servidor numa porta diferente).
+Parte 2: Expandir a conexão para mais um cliente (duas janelas de terminal no servidor e duas no cliente. Cada cliente x servidor numa porta diferente).
 
-Parte 3: Expandir a conex??o para mais um cliente (tr??s janelas de terminal no servidor e tr??s no cliente. Cada cliente x servidor numa porta diferente).
+Parte 3: Expandir a conexão para mais um cliente (três janelas de terminal no servidor e três no cliente. Cada cliente x servidor numa porta diferente).
 
-O programa deve ser apresentado ao professor de forma individual em algum momento durante a disciplina at?? o deadline (intervalo de aulas ou a combinar). O algoritmo deve ser explicado verbalmente, mostrando o c??digo-fonte e o resultado. A linguagem do programa ?? da escolha do aluno.
+O programa deve ser apresentado ao professor de forma individual em algum momento durante a disciplina até o deadline (intervalo de aulas ou a combinar). O algoritmo deve ser explicado verbalmente, mostrando o código-fonte e o resultado. A linguagem do programa é da escolha do aluno.
 
 #Resultados
 
-Primeiramente iniciamos uma conex??o cliente-servidor na porta 4000, 4001 e 4002 com um tempo consider??vel. Ap??s os tr??s programas estiverem executando paramos de executar o servidor com a porta 4002 e em seguida o servidor de porta 4000.
+Primeiramente iniciamos uma conexão cliente-servidor na porta 4000, 4001 e 4002 com um tempo considerável. Após os três programas estiverem executando paramos de executar o servidor com a porta 4002 e em seguida o servidor de porta 4000.
 
-```{r}
+```{r, include=FALSE}
 library(ggplot2)
 library(tidyverse)
 
@@ -33,9 +32,15 @@ names(files) <- list.files("log/", "*.csv")
 
 df <- map_df(files, ~read_csv(.), .id = "origin")
 
-df %>% ggplot()+
+df %>% 
+    ggplot()+
     aes(x=TIME,y=BAND, color = origin) +
-    geom_point()
+    geom_point() +
+    labs(x="Tempo (Timestamp)", y="Banda (Mbit/s)", title="Banda dos Servidores x Tempo.") +
+    theme(plot.title = element_text(hjust = 0.5))
+
+ggsave('./server.png', width = 16, height = 9, dpi = 100)
 ```
 
-
+![Banda x Tempo.](./server.png)
+ Podemos observar que cada vez que adicionamos um servidor novo, a banda é dividida igualmente.
