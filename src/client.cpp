@@ -27,6 +27,7 @@ int main(int argc, char const *argv[]) {
   string c_port(argv[1]);
   string filepath = "../log/" + c_port + ".csv";
   outfile.open(filepath);
+  outfile << "NUMB, BAND, TIME" << endl;
 
   struct sockaddr_in serv_addr;
 
