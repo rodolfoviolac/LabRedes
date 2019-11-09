@@ -61,8 +61,8 @@ int main(int argc, char const *argv[]) {
 
     read_data();
 
-//    cout << "Press ENTER to stop." << endl;
-//    getchar();
+    cout << "Press ENTER to stop." << endl;
+    getchar();
 
     close(new_socket);
     outfile.close();
