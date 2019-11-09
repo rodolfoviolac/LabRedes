@@ -7,7 +7,9 @@
 #include <thread>
 #include <string>
 #include <iostream>
+#include <fstream>
 
 #define PKT_SIZE 8196
 
+void read_data();
 void log_speed();

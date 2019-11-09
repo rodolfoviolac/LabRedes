@@ -9,6 +9,10 @@ using namespace std;
 double tmp = 0;
 double var_valread = 0;
 
+int new_socket, valread;
+
+ofstream outfile;
+
 int main(int argc, char const *argv[]) {
 
     int port;
@@ -19,11 +23,15 @@ int main(int argc, char const *argv[]) {
 
     port = atoi(argv[1]);
 
-    int server_fd, new_socket, valread;
+    std::thread t1(log_speed);
+
+    string filepath = "../log/4000.csv";
+    outfile.open(filepath);
+
+    int server_fd;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
-    char buffer[1024] = {0};
 
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
@@ -48,25 +56,33 @@ int main(int argc, char const *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    std::thread t1(log_speed);
+    std::thread t2(read_data);
 
-    while(1) {
-        valread = read(new_socket ,buffer, PKT_SIZE);
-        if (valread > 0 ) var_valread += valread;
-    }
+    system("pause");
+
+    close(new_socket);
+    outfile.close();
 
     return 0;
 }
 
+void read_data() {
+    char buffer[PKT_SIZE] = {0};
+    while(1) {
+        valread = read(new_socket ,buffer, PKT_SIZE);
+        if (valread > 0 ) var_valread += valread;
+    }
+}
+
 void log_speed(){
+    int count = 0;
     while (1) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
-	double v = var_valread;
-        double value = (v-tmp)/1000/1000;
-	tmp = v;
-        cout << value*8 << " Mbit/s" << endl;
-        //var_valread = 0;
-
+	    double v = var_valread;
+        double value = (v-tmp)/1000/1000*8;
+	    tmp = v;
+	    outfile << value << "," << count++;
+        cout << value << " Mbit/s" << endl;
     }
 }
 
