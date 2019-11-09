@@ -77,7 +77,7 @@ void log_speed(){
     tmp = v;
     std::time_t t = std::time(0);
     cout << value << "Mbit/s" << endl;
-    outfile << value << "," << count++ << "," << t << endl;
+    outfile << count++ << "," << value << "," << t << endl;
   }
 }
 

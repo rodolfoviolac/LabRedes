@@ -72,10 +72,8 @@ int main(int argc, char const *argv[]) {
 
 void read_data() {
     char buffer[PKT_SIZE] = {0};
-    cout << "entrei" << endl;
     while(1) {
         valread = read(new_socket ,buffer, PKT_SIZE);
-        cout << valread << endl;
         if (valread > 0 ) var_valread += valread;
     }
 }
@@ -89,7 +87,7 @@ void log_speed(){
 	    tmp = v;
         std::time_t t = std::time(0);
         cout << value << "Mbit/s" << endl;
-        outfile << value << "," << count++ << "," << t << endl;
+        outfile << count++ << "," << value << "," << t << endl;
     }
 }
 
