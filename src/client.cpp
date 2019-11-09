@@ -8,7 +8,7 @@
 double tmp = 0;
 double var_valsend = 0;
 
-int new_socket, valread;
+int sock, valread;
 
 ofstream outfile;
 
@@ -28,8 +28,6 @@ int main(int argc, char const *argv[]) {
   string filepath = "../log/" + c_port + ".csv";
   outfile.open(filepath);
 
-
-  int sock = 0;
   struct sockaddr_in serv_addr;
 
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
@@ -55,7 +53,7 @@ int main(int argc, char const *argv[]) {
   cout << "Press ENTER to stop." << endl;
   getchar();
 
-  close(new_socket);
+  close(sock);
   outfile.close();
 
   return 0;
@@ -63,9 +61,9 @@ int main(int argc, char const *argv[]) {
 
 
 void send_data() {
-  char buffer[PKT_SIZE] = {0};
+  char c[PKT_SIZE];
   while(1) {
-    valread = write(new_socket ,buffer, PKT_SIZE);
+    valread = send(sock , c ,PKT_SIZE , 0 );
     if (valread > 0 ) var_valsend += valread;
   }
 }

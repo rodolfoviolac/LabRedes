@@ -57,10 +57,12 @@ int main(int argc, char const *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    std::thread t2(read_data);
+    //std::thread t2(read_data);
 
-    cout << "Press ENTER to stop." << endl;
-    getchar();
+    read_data();
+
+//    cout << "Press ENTER to stop." << endl;
+//    getchar();
 
     close(new_socket);
     outfile.close();
@@ -70,8 +72,10 @@ int main(int argc, char const *argv[]) {
 
 void read_data() {
     char buffer[PKT_SIZE] = {0};
+    cout << "entrei" << endl;
     while(1) {
         valread = read(new_socket ,buffer, PKT_SIZE);
+        cout << valread << endl;
         if (valread > 0 ) var_valread += valread;
     }
 }
