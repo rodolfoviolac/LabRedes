@@ -2,9 +2,7 @@
 title: "Trabalho Laboratório de Redes."
 author: "Rodrigo Franzoi Scroferneker"
 date: "November 2019"
-output: 
-  pdf_document: 
-    latex_engine: xelatex
+output: rmarkdown::github_document
 ---
 
 #Objetivo
