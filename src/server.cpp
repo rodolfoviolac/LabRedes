@@ -25,7 +25,8 @@ int main(int argc, char const *argv[]) {
 
     std::thread t1(log_speed);
 
-    string filepath = "../log/4000.csv";
+    string c_port(argv[1]);
+    string filepath = "../log/" + c_port + ".csv";
     outfile.open(filepath);
 
     int server_fd;
@@ -58,7 +59,8 @@ int main(int argc, char const *argv[]) {
 
     std::thread t2(read_data);
 
-    system("pause");
+    cout << "Press ENTER to stop." << endl;
+    getchar();
 
     close(new_socket);
     outfile.close();
@@ -81,8 +83,8 @@ void log_speed(){
 	    double v = var_valread;
         double value = (v-tmp)/1000/1000*8;
 	    tmp = v;
-	    outfile << value << "," << count++;
-        cout << value << " Mbit/s" << endl;
+        std::time_t t = std::time(0);
+        outfile << value << "," << count++ << "," << t << endl;
     }
 }
 

@@ -5,7 +5,12 @@
 #include "../include/client.h"
 
 
+double tmp = 0;
 double var_valsend = 0;
+
+int new_socket, valread;
+
+ofstream outfile;
 
 int main(int argc, char const *argv[]) {
 
@@ -17,9 +22,15 @@ int main(int argc, char const *argv[]) {
 
   port = atoi(argv[1]);
 
-  int sock = 0, valread;
+  std::thread t1(log_speed);
+
+  string c_port(argv[1]);
+  string filepath = "../log/" + c_port + ".csv";
+  outfile.open(filepath);
+
+
+  int sock = 0;
   struct sockaddr_in serv_addr;
-  //char buffer[1024] = {0};
 
   if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
       cout << "Socket creation error." << endl;
@@ -39,25 +50,35 @@ int main(int argc, char const *argv[]) {
     return -1;
   }
 
-  std::thread t1(log_speed);
+  std::thread t2(send_data);
 
-  char c[PKT_SIZE];
-  //string c = "hello";
+  cout << "Press ENTER to stop." << endl;
+  getchar();
 
-  for (int i = 0; i < 30000; i++) {
-    int valsend = send(sock , c ,PKT_SIZE , 0 );
-    if (valsend > 0) var_valsend += valsend;
+  close(new_socket);
+  outfile.close();
 
-  }
   return 0;
 }
 
-void log_speed(){
-  while (1) {
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    double value = var_valsend/1024/1024;
-    cout << value << " MB/s" << endl;
-    var_valsend = 0;
 
+void send_data() {
+  char buffer[PKT_SIZE] = {0};
+  while(1) {
+    valread = write(new_socket ,buffer, PKT_SIZE);
+    if (valread > 0 ) var_valsend += valread;
   }
 }
+
+void log_speed(){
+  int count = 0;
+  while (1) {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    double v = var_valsend;
+    double value = (v-tmp)/1000/1000*8;
+    tmp = v;
+    std::time_t t = std::time(0);
+    outfile << value << "," << count++ << "," << t << endl;
+  }
+}
+

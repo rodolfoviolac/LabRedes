@@ -8,8 +8,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
-#define PKT_SIZE 8196
+#define PKT_SIZE 65568
 
 void read_data();
 void log_speed();
