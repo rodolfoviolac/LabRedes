@@ -84,6 +84,7 @@ void log_speed(){
         double value = (v-tmp)/1000/1000*8;
 	    tmp = v;
         std::time_t t = std::time(0);
+        cout << value << "Mbit/s" << endl;
         outfile << value << "," << count++ << "," << t << endl;
     }
 }
