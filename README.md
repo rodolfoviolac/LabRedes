@@ -16,9 +16,12 @@ Parte 3: Expandir a conexão para mais um cliente (três janelas de terminal no 
 
 O programa deve ser apresentado ao professor de forma individual em algum momento durante a disciplina até o deadline (intervalo de aulas ou a combinar). O algoritmo deve ser explicado verbalmente, mostrando o código-fonte e o resultado. A linguagem do programa é da escolha do aluno.
 
+Procedimento
+============
+
+Primeiramente iniciamos uma conexão cliente-servidor na porta 4000, 4001 e 4002 esperando cada conexão se estabilizar para iniciar uma nova. Após os três programas estiverem executando paramos de executar o servidor com a porta 4002 e em seguida o servidor de porta 4000.
+
 Resultados
 ==========
 
-Primeiramente iniciamos uma conexão cliente-servidor na porta 4000, 4001 e 4002 com um tempo considerável. Após os três programas estiverem executando paramos de executar o servidor com a porta 4002 e em seguida o servidor de porta 4000.
-
-![Banda x Tempo.](./server.png) Podemos observar que cada vez que adicionamos um servidor novo, a banda é dividida igualmente.
+![Banda x Tempo.](./server.png) Podemos observar que cada vez que adicionamos um servidor novo, a banda é dividida igualmente, podendo haver algumas ocilações.
