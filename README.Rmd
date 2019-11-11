@@ -35,7 +35,8 @@ df <- map_df(files, ~read_csv(.), .id = "origin")
 df %>% 
     ggplot()+
     aes(x=TIME,y=BAND, color = origin) +
-    geom_point() +
+    geom_point() + 
+    geom_line()+
     labs(x="Tempo (Timestamp)", y="Banda (Mbit/s)", title="Banda dos Servidores x Tempo.") +
     theme(plot.title = element_text(hjust = 0.5))
 
